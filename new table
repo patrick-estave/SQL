@@ -1,0 +1,17 @@
+*we want to find every cell that has an workerID that is the same as another;
+ 
+ 
+**table of workers that have multiple attempts (freqWork_id);
+ 
+proc sql;
+create table freqWork_id as
+select *, COUNT(work_id) as freq
+from GoodData
+having COUNT(work_id)>1;
+quit;
+ 
+ 
+proc freq data= freqWork_id; tables work_id; run;
+
+**creates a table freqWork_id with all features as well as a frequency count of work_id,
+**we retreive this data from GoodData, and we are interested in who too our survey more than once.
